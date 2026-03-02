@@ -1,9 +1,7 @@
 package gui;
 
 import java.awt.Frame;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;  // ✅ Добавлен импорт
+import java.awt.event.*;
 
 import javax.swing.*;
 
@@ -46,14 +44,26 @@ public class GenerateMenuHotBar extends JFrame {
         menu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                UIManager.put("OptionPane.yesButtonText", "Да");
-                UIManager.put("OptionPane.noButtonText", "Нет");
-                int confirm = JOptionPane.showConfirmDialog(frame, question, title, JOptionPane.YES_NO_OPTION);
-                if (confirm == JOptionPane.YES_OPTION) {
-                    frame.dispose();
+                showExitDialog(frame,question,title);
                 }
-            }
+
         });
         return menu;
     }
+
+    public static void showExitDialog(Frame frame, String question, String title) {
+        UIManager.put("OptionPane.yesButtonText", "Да");
+        UIManager.put("OptionPane.noButtonText", "Нет");
+        int confirm = JOptionPane.showConfirmDialog(
+                frame,
+                question,
+                title,
+                JOptionPane.YES_NO_OPTION
+        );
+        if (confirm == JOptionPane.YES_OPTION) {
+            frame.dispose();
+            System.exit(0); // Полное закрытие приложения
+        }
+    }
+
 }

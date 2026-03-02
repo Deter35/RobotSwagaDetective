@@ -42,6 +42,7 @@ public class LogWindow extends JInternalFrame implements LogChangeListener
         m_logContent.invalidate();
     }
 
+
     @Override
     public void onLogChanged()
     {

@@ -1,8 +1,9 @@
 package gui;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -32,8 +33,9 @@ public class MainApplicationFrame extends JFrame
 
         setContentPane(desktopPane);
         
-        
+        AddExit(this);
         LogWindow logWindow = createLogWindow();
+
         addWindow(logWindow);
 
         GameWindow gameWindow = new GameWindow();
@@ -41,7 +43,7 @@ public class MainApplicationFrame extends JFrame
         addWindow(gameWindow);
 
         setJMenuBar(generateMenuBar());
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
     }
 
     protected LogWindow createLogWindow()
@@ -80,18 +82,11 @@ public class MainApplicationFrame extends JFrame
         menuBar.add(exitmenu);
         return menuBar;
     }
-    
-    private void setLookAndFeel(String className)
-    {
-        try
-        {
-            UIManager.setLookAndFeel(className);
-            SwingUtilities.updateComponentTreeUI(this);
+    public static void AddExit(Frame frame){
+        frame.addWindowListener(new WindowAdapter() {  // ✅ WindowListener!
+            @Override
+            public void windowClosing(WindowEvent e) {   // windowClosing!
+                GenerateMenuHotBar.showExitDialog(frame, "Выйти", "Выход из окна?");}
         }
-        catch (ClassNotFoundException | InstantiationException
-            | IllegalAccessException | UnsupportedLookAndFeelException e)
-        {
-            // just ignore
-        }
-    }
+        );}
 }

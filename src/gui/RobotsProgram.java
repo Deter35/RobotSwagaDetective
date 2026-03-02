@@ -9,6 +9,7 @@ public class RobotsProgram
 {
     public static void main(String[] args) {
       try {
+          Localizator local = new Localizator();
         UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 //        UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
 //        UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
