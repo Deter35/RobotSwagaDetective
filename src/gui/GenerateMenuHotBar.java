@@ -45,7 +45,8 @@ public class GenerateMenuHotBar extends JFrame {
         menu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                showExitDialog(frame,question,title);
+                WindowEvent closeEvent = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
+                frame.dispatchEvent(closeEvent);
                 }
 
         });
