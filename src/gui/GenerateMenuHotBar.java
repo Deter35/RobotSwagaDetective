@@ -5,6 +5,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import com.sun.jdi.event.LocatableEvent;
 import log.Logger;
 
 public class GenerateMenuHotBar extends JFrame {
@@ -51,19 +52,44 @@ public class GenerateMenuHotBar extends JFrame {
         return menu;
     }
 
+
+    public static JMenuItem CreateEnglishMenuLocalisator(String title,String description,Frame frame){
+        JMenuItem menu = new JMenuItem(title);
+        menu.getAccessibleContext().setAccessibleDescription(description);
+        menu.addActionListener(e -> {
+            Localizator.LoadEnglishLocalisation();
+            SwingUtilities.updateComponentTreeUI(frame);  // ✅ КЛЮЧЕВОЕ!
+
+        });
+
+        return menu;
+    }
+    public static JMenuItem CreateRussionMenuLocalisator(String title,String description,Frame frame){
+        JMenuItem menu = new JMenuItem(title);
+        menu.getAccessibleContext().setAccessibleDescription(description);
+        menu.addActionListener(e -> {
+            Localizator.LoadRussianLocalisation();
+            SwingUtilities.updateComponentTreeUI(frame);  // ✅ КЛЮЧЕВОЕ!
+
+        });
+        return menu;
+    }
+
     public static void showExitDialog(Frame frame, String question, String title) {
-        UIManager.put("OptionPane.yesButtonText", "Да");
-        UIManager.put("OptionPane.noButtonText", "Нет");
-        int confirm = JOptionPane.showConfirmDialog(
-                frame,
-                question,
-                title,
-                JOptionPane.YES_NO_OPTION
-        );
-        if (confirm == JOptionPane.YES_OPTION) {
-            frame.dispose();
-            System.exit(0); // Полное закрытие приложения
-        }
+
+            UIManager.put("OptionPane.yesButtonText", "Да");
+            UIManager.put("OptionPane.noButtonText", "Нет");
+            int confirm = JOptionPane.showConfirmDialog(
+                    frame,
+                    question,
+                    title,
+                    JOptionPane.YES_NO_OPTION
+            );
+            if (confirm == JOptionPane.YES_OPTION) {
+                frame.dispose();
+                System.exit(0); // Полное закрытие приложения
+            }
+
     }
 
 }

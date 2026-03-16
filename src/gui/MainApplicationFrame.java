@@ -32,7 +32,7 @@ public class MainApplicationFrame extends JFrame
             screenSize.height - inset*2);
 
         setContentPane(desktopPane);
-        
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         AddExit(this);
         LogWindow logWindow = createLogWindow();
 
@@ -75,14 +75,16 @@ public class MainApplicationFrame extends JFrame
         LookMenu.add(GenerateMenuHotBar.CreateSystemAndCrossplatformLookAndFeel(this, UIManager.getSystemLookAndFeelClassName(),"Системный режим отображения"));
         LookMenu.add(GenerateMenuHotBar.CreateSystemAndCrossplatformLookAndFeel(this, UIManager.getCrossPlatformLookAndFeelClassName(),"Стандартный режим отображения"));
         JMenuItem exitmenu = GenerateMenuHotBar.CreateMenuExitButton("Выход","Выйти?",KeyEvent.VK_ESCAPE,this);
-
-
+        JMenu LocalisationMenu = GenerateMenuHotBar.generateMenuButton("Смена языка","Смена языка кнопок",KeyEvent.VK_Y);
+        LocalisationMenu.add(GenerateMenuHotBar.CreateRussionMenuLocalisator("Русский язык","Смена на русски язык",this));
+        LocalisationMenu.add(GenerateMenuHotBar.CreateEnglishMenuLocalisator("Английский язык","Смена на английский язык",this));
         menuBar.add(LookMenu);
         menuBar.add(testmenu);
+        menuBar.add(LocalisationMenu);
         menuBar.add(exitmenu);
         return menuBar;
     }
-    public static void AddExit(Frame frame){
+    private static void AddExit(Frame frame){
         frame.addWindowListener(new WindowAdapter() {  // ✅ WindowListener!
             @Override
             public void windowClosing(WindowEvent e) {   // windowClosing!
