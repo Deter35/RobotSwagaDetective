@@ -1,6 +1,6 @@
 package gui;
 
-import java.awt.Frame;
+import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
@@ -46,7 +46,7 @@ public class GenerateMenuHotBar extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 WindowEvent closeEvent = new WindowEvent(frame, WindowEvent.WINDOW_CLOSING);
-                frame.dispatchEvent(closeEvent);
+                Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(closeEvent);
                 }
 
         });
@@ -54,24 +54,23 @@ public class GenerateMenuHotBar extends JFrame {
     }
 
 
-    public static JMenuItem CreateEnglishMenuLocalisator(String title,String description,Frame frame){
+    public static JMenuItem CreateEnglishMenuLocalisator(String title,String description,Frame frame,JMenuBar menuBar){
         JMenuItem menu = new JMenuItem(title);
         menu.getAccessibleContext().setAccessibleDescription(description);
         menu.addActionListener(e -> {
-            Localizator.LoadEnglishLocalisation();
-            SwingUtilities.updateComponentTreeUI(frame);  // ✅ КЛЮЧЕВОЕ!
+            Localizator.LoadEnglishLocalisation(menuBar);
+            SwingUtilities.updateComponentTreeUI(frame);
 
         });
 
         return menu;
     }
-    public static JMenuItem CreateRussionMenuLocalisator(String title,String description,Frame frame){
+    public static JMenuItem CreateRussionMenuLocalisator(String title,String description,Frame frame,JMenuBar menuBar){
         JMenuItem menu = new JMenuItem(title);
         menu.getAccessibleContext().setAccessibleDescription(description);
         menu.addActionListener(e -> {
-            Localizator.LoadRussianLocalisation();
-            SwingUtilities.updateComponentTreeUI(frame);  // ✅ КЛЮЧЕВОЕ!
-
+            Localizator.LoadRussianLocalisation(menuBar);
+            SwingUtilities.updateComponentTreeUI(frame);
         });
         return menu;
     }

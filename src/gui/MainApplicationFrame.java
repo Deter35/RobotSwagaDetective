@@ -76,14 +76,17 @@ public class MainApplicationFrame extends JFrame
         LookMenu.add(GenerateMenuHotBar.CreateSystemAndCrossplatformLookAndFeel(this, UIManager.getCrossPlatformLookAndFeelClassName(),"Стандартный режим отображения"));
         JMenuItem exitmenu = GenerateMenuHotBar.CreateMenuExitButton("Выход","Выйти?",KeyEvent.VK_ESCAPE,this);
         JMenu LocalisationMenu = GenerateMenuHotBar.generateMenuButton("Смена языка","Смена языка кнопок",KeyEvent.VK_Y);
-        LocalisationMenu.add(GenerateMenuHotBar.CreateRussionMenuLocalisator("Русский язык","Смена на русски язык",this));
-        LocalisationMenu.add(GenerateMenuHotBar.CreateEnglishMenuLocalisator("Английский язык","Смена на английский язык",this));
+        LocalisationMenu.add(GenerateMenuHotBar.CreateRussionMenuLocalisator("Русский язык","Смена на русски язык",this,menuBar));
+        LocalisationMenu.add(GenerateMenuHotBar.CreateEnglishMenuLocalisator("Английский язык","Смена на английский язык",this,menuBar));
+        
+
         menuBar.add(LookMenu);
         menuBar.add(testmenu);
         menuBar.add(LocalisationMenu);
         menuBar.add(exitmenu);
         return menuBar;
     }
+
     private static void AddExit(Frame frame){
         frame.addWindowListener(new WindowAdapter() {  // ✅ WindowListener!
             @Override
