@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.beans.PropertyVetoException;
+import java.io.IOException;
 
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
@@ -21,7 +23,7 @@ import log.Logger;
 public class MainApplicationFrame extends JFrame
 {
     private final JDesktopPane desktopPane = new JDesktopPane();
-    
+    private Condition condition;
     public MainApplicationFrame() {
         //Make the big window be indented 50 pixels from each edge
         //of the screen.
@@ -41,7 +43,8 @@ public class MainApplicationFrame extends JFrame
         GameWindow gameWindow = new GameWindow();
         gameWindow.setSize(400,  400);
         addWindow(gameWindow);
-
+        condition = new Condition();
+        restoreWindowState();
         setJMenuBar(generateMenuBar());
 
     }
@@ -57,6 +60,26 @@ public class MainApplicationFrame extends JFrame
         return logWindow;
     }
 
+    private void restoreWindowState() {
+        try {
+            condition.readState(desktopPane);
+            Logger.debug("Состояние окон восстановлено");
+        } catch (IOException e) {
+            Logger.debug("Ошибка чтения файла состояния: " + e.getMessage());
+        } catch (PropertyVetoException e) {
+            Logger.debug("Ошибка восстановления состояния окон: " + e.getMessage());
+        }
+    }
+
+
+    private void saveWindowState() {
+        try {
+            condition.writeState(desktopPane);
+            Logger.debug("Состояние окон сохранено");
+        } catch (IOException e) {
+            Logger.debug("Ошибка сохранения состояния окон: " + e.getMessage());
+        }
+    }
 
     protected void addWindow(JInternalFrame frame)
     {
@@ -88,10 +111,16 @@ public class MainApplicationFrame extends JFrame
     }
 
     private static void AddExit(Frame frame){
-        frame.addWindowListener(new WindowAdapter() {  // ✅ WindowListener!
+        frame.addWindowListener(new WindowAdapter() {
             @Override
-            public void windowClosing(WindowEvent e) {   // windowClosing!
-                GenerateMenuHotBar.showExitDialog(frame, "Выйти", "Выход из окна?");}
+            public void windowClosing(WindowEvent e) {
+                if(GenerateMenuHotBar.showExitDialog(frame, "Выйти", "Выход из окна?")) {
+                    ((MainApplicationFrame) frame).saveWindowState();
+                    frame.dispose();
+                    System.exit(0);
+                }
+
+            }
         }
         );}
 }

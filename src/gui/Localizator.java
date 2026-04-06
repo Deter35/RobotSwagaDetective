@@ -5,17 +5,17 @@ import java.awt.*;
 
 public class Localizator {
 
-    public static void LoadRussianLocalisation(JMenuBar menuBAr){
-        menuBAr.getMenu(0).setText("Режим Отображения");
-        menuBAr.getMenu(0).getItem(0).setText("Системный режим отображения");
-        menuBAr.getMenu(0).getItem(1).setText("Стандартный режим отображения");
-        menuBAr.getMenu(1).setText("Тесты");
-        menuBAr.getMenu(1).getItem(0).setText("Вывести в лог");
-        menuBAr.getMenu(2).setText("Смена языка");
-        menuBAr.getMenu(2).getItem(0).setText("Русский");
-        menuBAr.getMenu(2).getItem(1).setText("Английский");
-        menuBAr.getMenu(3).setText("Выйти");
-        Component comp = menuBAr.getComponent(3);
+    public static void LoadRussianLocalisation(JMenuBar menuBar){
+        menuBar.getMenu(0).setText("Режим Отображения");
+        menuBar.getMenu(0).getItem(0).setText("Системный режим отображения");
+        menuBar.getMenu(0).getItem(1).setText("Стандартный режим отображения");
+        menuBar.getMenu(1).setText("Тесты");
+        menuBar.getMenu(1).getItem(0).setText("Вывести в лог");
+        menuBar.getMenu(2).setText("Смена языка");
+        menuBar.getMenu(2).getItem(0).setText("Русский");
+        menuBar.getMenu(2).getItem(1).setText("Английский");
+        menuBar.getMenu(3).setText("Выйти");
+        Component comp = menuBar.getComponent(3);
         JMenuItem exitMenu = (JMenuItem) comp;
         exitMenu.setText("Выйти");
         //menuBAr.getMenu(3).

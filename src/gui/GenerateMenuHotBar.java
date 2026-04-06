@@ -8,7 +8,7 @@ import javax.swing.*;
 import com.sun.jdi.event.LocatableEvent;
 import log.Logger;
 
-public class GenerateMenuHotBar extends JFrame {
+public class GenerateMenuHotBar  {
 
     private static void setLookAndFeel(String className, Frame frame) {
         try {
@@ -75,7 +75,7 @@ public class GenerateMenuHotBar extends JFrame {
         return menu;
     }
 
-    public static void showExitDialog(Frame frame, String question, String title) {
+    public static boolean showExitDialog(Frame frame, String question, String title) {
 
             UIManager.put("OptionPane.yesButtonText", "Да");
             UIManager.put("OptionPane.noButtonText", "Нет");
@@ -86,10 +86,11 @@ public class GenerateMenuHotBar extends JFrame {
                     JOptionPane.YES_NO_OPTION
             );
             if (confirm == JOptionPane.YES_OPTION) {
-                frame.dispose();
-                System.exit(0); // Полное закрытие приложения
-            }
 
+                return true;// Полное закрытие приложения
+            }
+            return  false;
     }
+
 
 }
