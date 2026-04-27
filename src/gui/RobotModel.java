@@ -10,8 +10,9 @@ public class RobotModel extends Observable {
     private volatile Target target;
 
     private static final double maxVelocity = 0.1;
+    private static double velocity = 0.0;
     private static final double maxAngularVelocity = 0.001;
-
+    private static final double DeadDist = 35;
 
     public RobotModel(){
         this.target = new Target(150,150);
@@ -35,6 +36,11 @@ public class RobotModel extends Observable {
     public int getTargetPositionY() {
         return target.getY();
     }
+    public double getVelocity(){
+
+        return velocity;
+
+    }
 
     public void setTargetPosition(int x, int y) {
         target.setPosition(x,y);
@@ -48,7 +54,15 @@ public class RobotModel extends Observable {
         if (distance < 0.5) {
             return;
         }
-        double velocity = maxVelocity;
+
+        if (distance >= DeadDist) {
+            velocity = maxVelocity;
+        } else {
+            // скорость пропорциональна расстоянию (от 0 до maxVelocity)
+            velocity = maxVelocity * (distance / DeadDist);
+            // минимальная скорость, чтобы не застыть на месте
+            velocity = Math.min(velocity, 0.01);
+        }
         double angleToTarget = angleTo(robotPositionX, robotPositionY,
                 target.getX(), target.getY());
 
@@ -104,6 +118,7 @@ public class RobotModel extends Observable {
         } else {
             return -maxAngularVelocity;
         }
+
     }
 
     private static double applyLimits(double value, double min, double max) {

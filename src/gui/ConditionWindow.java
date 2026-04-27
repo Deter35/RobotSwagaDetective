@@ -10,6 +10,7 @@ public class ConditionWindow extends JInternalFrame implements Observer {
     private final JLabel robotXLabel;
     private final JLabel robotYLabel;
     private final JLabel robotDirectionLabel;
+    private final JLabel robotVelocityLabel;
     private final JLabel targetXLabel;
     private final JLabel targetYLabel;
     private final RobotModel model;
@@ -37,6 +38,10 @@ public class ConditionWindow extends JInternalFrame implements Observer {
         panel.add(new JLabel("Направление робота (рад):"));
         robotDirectionLabel = new JLabel(String.format("%.3f", model.getRobotDirection()));
         panel.add(robotDirectionLabel);
+
+        panel.add(new JLabel("Скорость робота :"));
+        robotVelocityLabel = new JLabel(String.valueOf(model.getVelocity()));
+        panel.add(robotVelocityLabel);
 
         panel.add(new JLabel("Цель X:"));
         targetXLabel = new JLabel(String.valueOf(model.getTargetPositionX()));
