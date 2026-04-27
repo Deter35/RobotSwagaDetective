@@ -39,10 +39,13 @@ public class MainApplicationFrame extends JFrame
         LogWindow logWindow = createLogWindow();
 
         addWindow(logWindow);
-
-        GameWindow gameWindow = new GameWindow();
+        RobotModel robotModel = new RobotModel();
+        GameWindow gameWindow = new GameWindow(robotModel);
         gameWindow.setSize(400,  400);
         addWindow(gameWindow);
+        ConditionWindow conditionWindow = new ConditionWindow(robotModel);
+
+        addWindow(conditionWindow);
         condition = new Condition();
         restoreWindowState();
         setJMenuBar(generateMenuBar());
